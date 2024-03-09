@@ -1,6 +1,8 @@
 // Receiver signal pins
 int vx = A0;  // Analog pin for joystick x-axis
 int vy = A1;  // Analog pin for joystick y-axis
+int basex;
+int basey;
 
 // Right motor driver pins
 int R_EN_right = 2; 
@@ -27,6 +29,8 @@ void setup()
   pinMode(L_EN_left, OUTPUT);
   pinMode(R_PWM_left, OUTPUT); 
   pinMode(L_PWM_left, OUTPUT);
+  basex = analogRead(vx);
+  basey = analogRead(vy);
 }
 
 void loop()
@@ -40,8 +44,8 @@ void loop()
   Serial.print("Y ");
   Serial.println(y);
   
-  if (x > 507) {
-    if (y > 523) {
+  if (x > basex) {
+    if (y > basey) {
       int out1 = map(x, 507, 1023, 0, 255);
       int out2 = map(y, 523, 1023, 0, 255);
       int sub = abs(out2 - out1);
@@ -51,7 +55,7 @@ void loop()
       analogWrite(L_PWM_right, 0);
       analogWrite(L_PWM_left, 0);
     }
-    else if (y < 523) {
+    else if (y < basey) {
       int out1 = map(x, 507, 1023, 0, 255);
       int out2 = map(y, 523, 0, 0, 255);
       int sub = abs(out2 - out1);
@@ -69,8 +73,8 @@ void loop()
       analogWrite(L_PWM_left, 0);
     }
   }
-  else if (x < 507) {
-    if (y > 523) {
+  else if (x < basex) {
+    if (y > basey) {
       int out1 = map(x, 507, 0, 0, 255);
       int out2 = map(y, 523, 1023, 0, 255);
       int sub = abs(out2 - out1);
@@ -80,7 +84,7 @@ void loop()
       analogWrite(R_PWM_right, 0);
       analogWrite(R_PWM_left, 0);
     }
-    else if (y < 523) {
+    else if (y < basey) {
       int out1 = map(x, 507, 0, 0, 255);
       int out2 = map(y, 523, 0, 0, 255);
       int sub = abs(out2 - out1);
