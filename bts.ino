@@ -53,7 +53,7 @@ void loop()
     }
     else if (y < 523) {
       int out1 = map(x, 507, 1023, 0, 255);
-      int out2 = map(y, 523, 0, 255);
+      int out2 = map(y, 523, 0, 0, 255);
       int sub = abs(out2 - out1);
       int add = out2 + out1;
       analogWrite(R_PWM_right, add);
@@ -82,7 +82,7 @@ void loop()
     }
     else if (y < 523) {
       int out1 = map(x, 507, 0, 0, 255);
-      int out2 = map(y, 523, 0, 255);
+      int out2 = map(y, 523, 0, 0, 255);
       int sub = abs(out2 - out1);
       int add = out2 + out1;
       analogWrite(L_PWM_right, add);
