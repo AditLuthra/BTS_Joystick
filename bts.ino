@@ -46,66 +46,97 @@ void loop()
   
   if (x > basex) {
     if (y > basey) {
-      int out1 = map(x, 507, 1023, 0, 255);
-      int out2 = map(y, 523, 1023, 0, 255);
+      int out1 = map(x, basex, 1023, 0, 255);
+      int out2 = map(y, basey, 1023, 0, 255);
       int sub = abs(out2 - out1);
       int add = out2 + out1;
       analogWrite(R_PWM_right, sub);
       analogWrite(R_PWM_left, add);
       analogWrite(L_PWM_right, 0);
       analogWrite(L_PWM_left, 0);
+      Serial.println("Forward Right");
     }
     else if (y < basey) {
-      int out1 = map(x, 507, 1023, 0, 255);
-      int out2 = map(y, 523, 0, 0, 255);
+      int out1 = map(x, basex, 1023, 0, 255);
+      int out2 = map(y, basey, 0, 0, 255);
       int sub = abs(out2 - out1);
       int add = out2 + out1;
       analogWrite(R_PWM_right, add);
       analogWrite(R_PWM_left, sub);
       analogWrite(L_PWM_right, 0);
       analogWrite(L_PWM_left, 0);
+      Serial.println("Forward Left");
     }
     else {
-      int out1 = map(x, 507, 1023, 0, 255);
+      int out1 = map(x, basex, 1023, 0, 255);
       analogWrite(R_PWM_right, out1);
       analogWrite(R_PWM_left, out1);
       analogWrite(L_PWM_right, 0);
       analogWrite(L_PWM_left, 0);
+      Serial.println("Forward");
     }
   }
   else if (x < basex) {
     if (y > basey) {
-      int out1 = map(x, 507, 0, 0, 255);
-      int out2 = map(y, 523, 1023, 0, 255);
+      int out1 = map(x, basex, 0, 0, 255);
+      int out2 = map(y, basey, 1023, 0, 255);
       int sub = abs(out2 - out1);
       int add = out2 + out1;
       analogWrite(L_PWM_right, sub);
       analogWrite(L_PWM_left, add);
       analogWrite(R_PWM_right, 0);
       analogWrite(R_PWM_left, 0);
+      Serial.println("Backward Right");
     }
     else if (y < basey) {
-      int out1 = map(x, 507, 0, 0, 255);
-      int out2 = map(y, 523, 0, 0, 255);
+      int out1 = map(x, basex, 0, 0, 255);
+      int out2 = map(y, basey, 0, 0, 255);
       int sub = abs(out2 - out1);
       int add = out2 + out1;
       analogWrite(L_PWM_right, add);
       analogWrite(L_PWM_left, sub);
       analogWrite(R_PWM_right, 0);
       analogWrite(R_PWM_left, 0);
+      Serial.println("Backward Left");
     }
     else {
-      int out1 = map(x, 507, 0, 0, 255);
+      int out1 = map(x, basex, 0, 0, 255);
       analogWrite(L_PWM_right, out1);
       analogWrite(L_PWM_left, out1);
       analogWrite(R_PWM_right, 0);
       analogWrite(R_PWM_left, 0);
+      Serial.println("Backward");
     }
   }
   else {
-    analogWrite(R_PWM_right, 0);
-    analogWrite(R_PWM_left, 0);
-    analogWrite(L_PWM_right, 0);
-    analogWrite(L_PWM_left, 0);
+    if (y > basey) {
+      int out1 = map(x, basex, 0, 0, 255);
+      int out2 = map(y, basey, 1023, 0, 255);
+      int sub = abs(out2 - out1);
+      int add = out2 + out1;
+      analogWrite(L_PWM_right, sub);
+      analogWrite(L_PWM_left, add);
+      analogWrite(R_PWM_right, 0);
+      analogWrite(R_PWM_left, 0);
+      Serial.println("Right");
+    }
+    else if (y < basey) {
+      int out1 = map(x, basex, 0, 0, 255);
+      int out2 = map(y, basey, 0, 0, 255);
+      int sub = abs(out2 - out1);
+      int add = out2 + out1;
+      analogWrite(L_PWM_right, add);
+      analogWrite(L_PWM_left, sub);
+      analogWrite(R_PWM_right, 0);
+      analogWrite(R_PWM_left, 0);
+      Serial.println("Left");
+    }
+    else {
+      analogWrite(L_PWM_right, 0);
+      analogWrite(L_PWM_left, 0);
+      analogWrite(R_PWM_right, 0);
+      analogWrite(R_PWM_left, 0);
+      Serial.println("Stopped");
+    }
   }
 }
